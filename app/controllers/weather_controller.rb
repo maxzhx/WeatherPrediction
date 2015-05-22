@@ -39,4 +39,5 @@ class WeatherController < ApplicationController
     puts params[:period]
     render :template => 'weather/prediction'
   end
+
 end

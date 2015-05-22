@@ -14,10 +14,10 @@ Kun Qin - 674258
 
 Xue Jiang - 665401
 
-## code files
+## Code files
 
-### scheduler
+### Scheduler
 /config/initializers/scheduler.rb
 
-### task code
+### Tasks
 /lib/tasks/weather.rake

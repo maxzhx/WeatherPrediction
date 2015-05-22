@@ -17,7 +17,7 @@
 /tmp
 
 # vim files
-.swp
+*.swp
 
 # Mac OS X File
 .DS_Store

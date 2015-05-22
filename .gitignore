@@ -16,5 +16,8 @@
 !/log/.keep
 /tmp
 
+# vim files
+.swp
+
 # Mac OS X File
 .DS_Store

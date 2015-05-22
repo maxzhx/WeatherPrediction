@@ -24,7 +24,7 @@ Xue Jiang - 665401
 
 ## API:
 
-### Weather (http://api.openweathermap.org/data/2.5/weather?lat=-12&lon=60&units=metric)
+### Weather (http://openweathermap.org/weather-data#current)
 http://api.openweathermap.org/data/2.5/weather?lat=-37&lon=144&units=metric
 
 ### Lat and Long to Postcode

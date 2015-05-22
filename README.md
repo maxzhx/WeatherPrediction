@@ -6,8 +6,8 @@ SWEN30006 Project three
 
 ## code files
 
-# scheduler
+### scheduler
 /config/initializers/scheduler.rb
 
-# main code
+### main code
 /lib/tasks/weather.rake

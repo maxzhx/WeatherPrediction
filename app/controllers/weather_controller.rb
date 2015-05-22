@@ -1,4 +1,11 @@
 class WeatherController < ApplicationController
+  # api
+  #
+  # lat and long to postcode
+  # http://maps.googleapis.com/maps/api/geocode/json?latlng=-37,144&sensor=true
+  #
+  # postcode to lat and long
+  # http://v0.postcodeapi.com.au/suburbs/3463.json
 
   def locations
   end

@@ -8,11 +8,6 @@ class WeatherController < ApplicationController
   # http://v0.postcodeapi.com.au/suburbs/3463.json
 
   def locations
-    require'nokogiri'
-    require 'open-uri'
-    require 'json'
-    forecast = JSON.parse(open("http://maps.googleapis.com/maps/api/geocode/json?latlng=-37,144&sensor=true").read)
-    puts forecast
   end
 
   def location_data

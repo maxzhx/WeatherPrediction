@@ -13,6 +13,6 @@ s = Rufus::Scheduler.singleton
 # Stupid recurrent task...
 #
 s.every '10s' do
-  %x(rake weather:getNewData)
-  Rails.logger.info "hello, it's #{Time.now}"
+  #%x(rake weather:getNewData)
+  #Rails.logger.info "hello, it's #{Time.now}"
 end

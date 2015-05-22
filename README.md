@@ -21,3 +21,22 @@ Xue Jiang - 665401
 
 ### Tasks
 /lib/tasks/weather.rake
+
+## API:
+
+### Weather (http://api.openweathermap.org/data/2.5/weather?lat=-12&lon=60&units=metric)
+http://api.openweathermap.org/data/2.5/weather?lat=-37&lon=144&units=metric
+
+### Lat and Long to Postcode
+http://maps.googleapis.com/maps/api/geocode/json?latlng=-37,144&sensor=true
+
+### Postcode to Lat and Long
+http://v0.postcodeapi.com.au/suburbs/3463.json
+
+## Testing
+
+### getStation
+rake weather:getStation
+
+### getForecast
+rake weather:getForcast

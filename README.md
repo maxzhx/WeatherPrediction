@@ -35,8 +35,8 @@ http://v0.postcodeapi.com.au/suburbs/3463.json
 
 ## Testing
 
-### getStation
-rake weather:getStation
+### getLocation
+rake weather:getLocation
 
 ### getForecast
 rake weather:getForcast

@@ -8,6 +8,7 @@ class WeatherController < ApplicationController
   # http://v0.postcodeapi.com.au/suburbs/3463.json
 
   def locations
+    @locations = Location.all
   end
 
   def location_data

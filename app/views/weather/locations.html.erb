@@ -1,2 +1,31 @@
-<h1>Weather#locations</h1>
-<p>Find me in app/views/weather/locations.html.erb</p>
+<table align="center" border="1" style="border:solid">
+  <thead>
+    <tr>
+        <th colspan="7"><font size="4" color="red">Locations</font></th>
+    </tr>
+    <tr>
+      <th>Position</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Postcode</th>
+      <th>Last Update Time</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% if(@locations.size == 0) %>
+      <tr>
+        <td colspan ="7" align="center">No data available now. The server is working! Please wait for a while and then reload the page.</td>
+      </tr>
+      <% end %>
+    <% @locations.each_with_index do |locations,index| %>
+      <tr>
+        <td align="center"><%= locations.name %></td>
+        <td align="center"><%= locations.lat %></td>
+        <td align="center"><%= locations.lon %></td>
+        <td align="center"><%= locations.postcode %></td>
+        <td align="center"><%= locations.last_update %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

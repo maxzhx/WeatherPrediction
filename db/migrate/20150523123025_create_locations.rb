@@ -5,6 +5,7 @@ class CreateLocations < ActiveRecord::Migration
       t.float :lat
       t.float :lon
       t.integer :postcode
+      t.datetime :last_update
 
       t.timestamps null: false
     end

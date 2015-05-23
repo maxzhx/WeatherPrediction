@@ -36,11 +36,6 @@ namespace :weather do
         end
       end
     end
-
-    #<li><a href="http://www.postcodes-australia.com/postcodes/3000" title="Postcode 3000, Victoria">3000</a>
-    #<ul>
-    #<li>Melbourne</li>
-
   end
 
   desc "TODO"
@@ -85,6 +80,8 @@ namespace :weather do
         puts temp
         puts wind_speed
         puts wind_deg
+        location.last_update = time
+        location.save
         puts time
       end
     end

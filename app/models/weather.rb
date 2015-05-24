@@ -1,8 +1,13 @@
 class Weather < ActiveRecord::Base
   belongs_to :location
 
-  def self.getForecast
+  def self.getWeather location, date
+    return Weather.where(date: (Time.parse(date) + (60*60*10)..
+                          (Time.parse(date) + 1.day)+(60*60*10)),
+                          location_id: Location.find_by(name: location))
+  end
 
+  def self.getForecast
     require'nokogiri'
     require 'open-uri'
     require 'json'
@@ -36,6 +41,7 @@ class Weather < ActiveRecord::Base
         temp = forecast['main']['temp'].to_f
         wind_speed = forecast['wind']['speed'].to_f
         wind_deg = forecast['wind']['deg'].to_f
+        condition = forecast['weather'][0]['main']
         time = Time.at(forecast['dt'].to_i).strftime('%d %b %Y %H:%M:%S')
         
         weather = Weather.new
@@ -44,6 +50,7 @@ class Weather < ActiveRecord::Base
         weather.wind_speed = wind_speed
         weather.wind_direction = wind_deg
         weather.date = time
+        weather.condition = condition
         weather.location = location
         weather.save
 

@@ -12,18 +12,21 @@ class WeatherController < ApplicationController
   end
 
   def location_data
-    @weathers =  Weather.where(date: (Time.parse(params[:date]) + (60*60*10)..
-                              (Time.parse(params[:date]) + 1.day)+(60*60*10)),
-                              location_id: Location.find_by(name: params[:location_id]))
+    @weathers =  Weather.getWeather(params[:location_id], params[:date])
     puts params[:location_id]
     puts params[:date]
-    render :template => 'weather/data'
   end
 
   def postcode_data
+    @locations = Location.where(postcode: params[:post_code])
+    @location_weathers = Array.new
+    @locations.each do |location|
+      @location_weathers << Weather.getWeather(location.name, params[:date])
+    end
+    puts '============='
+    puts @locations.length
     puts params[:post_code]
     puts params[:date]
-    render :template => 'weather/data'
   end
 
   def postcode_prediction

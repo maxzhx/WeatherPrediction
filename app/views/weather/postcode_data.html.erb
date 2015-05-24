@@ -1,0 +1,36 @@
+<h1>Post Code <%= params[:post_code] %></h1>
+  <% @location_weathers.each_with_index do |weathers,index| %>
+    <table align="center" border="1" style="border:solid">
+      <thead>
+        <tr>
+            <th colspan="7"><font size="4" color="red"><%= @locations[index].name %></font></th>
+        </tr>
+        <tr>
+          <th>Time</th>
+          <th>Temperature</th>
+          <th>RainFall in Last 3 Hours</th>
+          <th>Wind Speed</th>
+          <th>Wind Direcrtion</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if(weathers == nil) %>
+        <tr>
+          <td colspan ="7" align="center">No weather data!</td>
+        </tr>
+        <% else %>
+          <% weathers.reverse.each do |weather| %>
+            <tr>
+              <td align="center"><%= weather.date %></td>
+              <td align="center"><%= weather.temperature.round(2) %></td>
+              <td align="center"><%= weather.rainfall.round{2} %></td>
+              <td align="center"><%= weather.wind_speed.round{2} %></td>
+              <td align="center"><%= weather.wind_direction.round{2} %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table> 
+    </br>
+  <% end %>

@@ -1,0 +1,32 @@
+<h1>Weather#location_data</h1>
+<table align="center" border="1" style="border:solid">
+  <thead>
+    <tr>
+        <th colspan="7"><font size="4" color="red"><%= params[:location_id] %></font></th>
+    </tr>
+    <tr>
+      <th>Time</th>
+      <th>Temperature</th>
+      <th>RainFall in Last 3 Hours</th>
+      <th>Wind Speed</th>
+      <th>Wind Direcrtion</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% if(@weathers.size == 0) %>
+      <tr>
+        <td colspan ="7" align="center">No weather data!</td>
+      </tr>
+      <% end %>
+    <% @weathers.reverse.each do |weather| %>
+      <tr>
+        <td align="center"><%= weather.date %></td>
+        <td align="center"><%= weather.temperature.round(2) %></td>
+        <td align="center"><%= weather.rainfall.round{2} %></td>
+        <td align="center"><%= weather.wind_speed.round{2} %></td>
+        <td align="center"><%= weather.wind_direction.round{2} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -12,6 +12,7 @@ class WeatherController < ApplicationController
   end
 
   def location_data
+    Location.where(last_update: (Time.now.midnight + (60*60*10)..(Time.now.midnight + 1.day)+(60*60*10)), id: 1)
     puts params[:location_id]
     puts params[:date]
     render :template => 'weather/data'

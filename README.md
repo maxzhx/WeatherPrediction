@@ -19,7 +19,7 @@ Xue Jiang - 665401
 ### Scheduler
 /config/initializers/scheduler.rb
 
-### Tasks
+### Tasks (for testing)
 /lib/tasks/weather.rake
 
 ## API:

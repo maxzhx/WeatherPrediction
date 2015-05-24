@@ -1,4 +1,7 @@
 class Location < ActiveRecord::Base
+
+  has_many :weathers
+
   def self.getLocation
     require 'nokogiri'
     require 'open-uri'
@@ -74,4 +77,5 @@ class Location < ActiveRecord::Base
       end
     end
   end
+
 end

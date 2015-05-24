@@ -31,7 +31,7 @@ http://api.openweathermap.org/data/2.5/weather?lat=-37&lon=144&units=metric
 http://maps.googleapis.com/maps/api/geocode/json?latlng=-37,144&sensor=true
 
 ### Postcode to Lat and Long
-http://v0.postcodeapi.com.au/suburbs/3463.json
+http://api.geonames.org/postalCodeSearchJSON?postalcode=3023&country=AU&maxRows=1&username=maxzhx
 
 ## Testing
 

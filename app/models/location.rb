@@ -41,7 +41,7 @@ class Location < ActiveRecord::Base
     (0..postcode_array.length).each do |i|
 
       # data acquiring frequency
-      if(i%10 == 0)
+      if(i%20 == 0)
         # if this location doesn't exit and the number of locations is less than 300
         if(Location.find_by(name: location_array[i]) == nil && Location.count() < 250)
           begin 

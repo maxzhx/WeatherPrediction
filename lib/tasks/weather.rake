@@ -97,14 +97,22 @@ namespace :weather do
         wind_speed = forecast['wind']['speed'].to_f
         wind_deg = forecast['wind']['deg'].to_f
         time = Time.at(forecast['dt'].to_i).strftime('%d %b %Y %H:%M:%S')
-        puts index
-        puts rainfall
-        puts temp
-        puts wind_speed
-        puts wind_deg
+        
+        weather = Weather.new
+        weather.temperature = temp
+        weather.rainfall = rainfall
+        weather.wind_speed = wind_speed
+        weather.wind_direction = wind_deg
+        weather.date = time
+        weather.location = location
+        weather.save
+
         location.last_update = time
         location.save
         puts time
+
+        
+
       end
     end
     #Test.new().save()

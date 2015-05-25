@@ -39,4 +39,4 @@ http://api.geonames.org/postalCodeSearchJSON?postalcode=3023&country=AU&maxRows=
 rake weather:getLocation
 
 ### getForecast
-rake weather:getForcast
+rake weather:getForecast

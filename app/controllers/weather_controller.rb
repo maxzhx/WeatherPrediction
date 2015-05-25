@@ -1,3 +1,26 @@
+=begin
+
+               ┏┓   ┏┓
+              ┏┛┻━━━┛┻┓
+              ┃       ┃
+              ┃   ━   ┃
+              ┃┳┛   ┗┳┃
+              ┃       ┃
+              ┃   ┻   ┃
+              ┃       ┃
+              ┗━┓   ┏━┛
+                ┃   ┃
+                ┃   ┃
+                ┃   ┗━━━┓
+                ┃       ┣┓
+                ┃       ┏┛
+                ┗┓┓┏━┳┓┏┛
+                 ┃┫┫ ┃┫┫
+                 ┗┻┛ ┗┻┛
+
+ Code is far away from bug with the animal protecting
+=end
+
 class WeatherController < ApplicationController
   # api
   #

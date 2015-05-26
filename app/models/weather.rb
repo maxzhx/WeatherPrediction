@@ -14,12 +14,23 @@ class Weather < ActiveRecord::Base
   def self.getLocationId_for_prediction post_code
     postcodes = []
     Location.all.each {|l| postcodes.push(l[:postcode])}
-    p postcodes
-    begin
-                return location_id = Location.find_by(postcode: post_code).id
-    rescue 
-                puts "Error: fail to find location in database through the post code"
-                return nil
+    post_code = post_code.to_i
+    if postcodes.include?(postcodes)
+          return Location.find_by(postcode: post_code).id
+    else
+          min_diff = (postcodes[0] - post_code).abs
+          postcodes.each do |p|
+                  if (p - post_code).abs < min_diff
+                          min_diff = (p - post_code).abs
+                  end
+          end
+          post_code_close = post_code + min_diff
+          if postcodes.include?(post_code_close)
+                   return Location.find_by(postcode: post_code_close).id
+          else
+                    post_code_close = post_code - min_diff
+                    return Location.find_by(postcode: post_code_close).id
+          end
     end
   end
 

@@ -85,9 +85,9 @@ class Prediction
 			
 			predictions.push(prediction)
 		end
-		puts "_________get predictions______________"
-		p predictions	
-		p predictions.length
+		#puts "_________get predictions______________"
+		#p predictions	
+		#p predictions.length
 		return predictions	
 	end
 

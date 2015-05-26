@@ -1,14 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>ProjectThree</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
 
-<%= yield %>
+  <!DOCTYPE html>
+  <html>
+  <head>
+   <title>Weather Prediction System</title>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track
+   " => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+   
+<div class="navbar navbar-inverse" >
 
+	 
+<div  class="container">
+ 
+    <font size="6" color="white">Weather Prediction</font>
+
+ </div>
+ <div  class="time">
+ 
+     <font size="4" color="yellow">Today: <%= $time%></font>
+
+  </div>
+  <div  class="homepage">
+ 
+     <button> <%= link_to "Homepage" ,'/weather/locations'%></button>
+
+   </div>
+  
+   </div>
+ <div class ="body">
+ <%= yield %>
+
+ </div>
+ <div >
+
+ <%= render 'layouts/footer' %>
+ </div>
 </body>
 </html>

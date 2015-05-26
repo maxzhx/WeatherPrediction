@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+root to:'weather#locations'
   get 'weather/locations', to: 'weather#locations'
 
   get 'weather/data/:post_code/:date', post_code: /3\d{3}/ , to: 'weather#postcode_data'

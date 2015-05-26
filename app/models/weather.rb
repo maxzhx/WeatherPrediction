@@ -1,6 +1,10 @@
 class Weather < ActiveRecord::Base
   belongs_to :location
 
+  def self.predict weathers, period
+    return Prediction.predict(weathers, period)
+  end
+
   def self.getWeather location, date
     return Weather.where(date: (Time.parse(date) + (60*60*10)..
                           (Time.parse(date) + 1.day)+(60*60*10)),

@@ -55,6 +55,9 @@ class WeatherController < ApplicationController
   def postcode_prediction
     puts params[:post_code]
     puts params[:period]
+    location_id = Location.find_by(postcode: params[:post_code]).id
+    weathers = Weather.where(location_id: location_id)
+    @predictions = Weather.predict(weathers, params[:period])
     render :template => 'weather/prediction'
   end
 

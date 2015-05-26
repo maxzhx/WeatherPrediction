@@ -1,2 +1,40 @@
-<h1>Weather#prediction</h1>
-<p>Find me in app/views/weather/prediction.html.erb</p>
+<table align="center" border="1" style="border:solid">
+  <thead>
+    <tr>
+        <th colspan="9"><font size="4" color="red">Predictions</font></th>
+    </tr>
+    <tr>
+      <th>Time</th>
+      <th>Rainfall Value</th>
+      <th>Rainfall Probability</th>
+       <th>Wind Direction Value</th>
+      <th>Wind Direction Probability</th>
+       <th>Wind Speed Value</th>
+      <th>Wind Speed  Probability</th>
+       <th>Temperature Value</th>
+      <th>Temperature Probability</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% if(@predictions.size == 0) %>
+      <tr>
+        <td colspan ="7" align="center">No prediction data!</td>
+      </tr>
+    <% else %>
+      <% @predictions.each do |prediction| %>
+        <tr>          
+          <td align="center"><%= Time.local(prediction.time) %></td>
+          <td align="center"><%= prediction.rainfall_value %></td>
+          <td align="center"><%= prediction.rainfall_probability %></td>
+          <td align="center"><%= prediction.winddir_value %></td>
+          <td align="center"><%= prediction.winddir_probability %></td>
+          <td align="center"><%= prediction.windspeed_value %></td>
+          <td align="center"><%= prediction.windspeed_probability %></td>
+          <td align="center"><%= prediction.temp_value %></td>
+          <td align="center"><%= prediction.temp_probability %></td>   
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

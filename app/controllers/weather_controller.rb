@@ -55,8 +55,9 @@ class WeatherController < ApplicationController
   def postcode_prediction
     puts params[:post_code]
     puts params[:period]
-    location_id = Location.find_by(postcode: params[:post_code]).id
-    weathers = Weather.where(location_id: location_id)
+    #location_id = Location.find_by(postcode: params[:post_code]).id
+    location_id = Weather.getLocationId_for_prediction(params[:post_code])
+    weathers = Weather.getWeather_for_prediction(location_id)
     @predictions = Weather.predict(weathers, params[:period])
     render :template => 'weather/prediction'
   end
@@ -65,6 +66,10 @@ class WeatherController < ApplicationController
     puts params[:lat]
     puts params[:long]
     puts params[:period]
+    p postcode = Weather.Lat_Long_to_Postcode(params[:lat], params[:long])
+    location_id = Weather.getLocationId_for_prediction(postcode)
+    weathers = Weather.getWeather_for_prediction(location_id)
+    @predictions = Weather.predict(weathers, params[:period])
     render :template => 'weather/prediction'
   end
 

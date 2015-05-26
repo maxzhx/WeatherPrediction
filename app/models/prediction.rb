@@ -62,10 +62,14 @@ class Prediction
 			wind_direction_arr = dataAbstract(weathers, :wind_direction) 
 			wind_speed_arr = dataAbstract(weathers, :wind_speed)
 			temperature_arr = dataAbstract(weathers, :temperature)
-			reg_rainfall = Regression.reg_all(time_arr, rainfall_arr)		
+			reg_rainfall = Regression.reg_all(time_arr, rainfall_arr)					
 			reg_wind_dir = Regression.reg_all(time_arr, wind_direction_arr)		 
 			reg_wind_spd = Regression.reg_all(time_arr, wind_speed_arr)		 
 			reg_temp = Regression.reg_all(time_arr, temperature_arr)
+
+			if reg_rainfall == nil || reg_wind_dir == nil || reg_wind_spd == nil || reg_temp == nil
+				return []		
+			end
 
 			prediction = Prediction.new
 			prediction.time = Time.new.to_i+10*60*v

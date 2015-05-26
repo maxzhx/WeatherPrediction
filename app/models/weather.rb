@@ -11,6 +11,45 @@ class Weather < ActiveRecord::Base
                           location_id: Location.find_by(name: location))
   end
 
+  def self.getLocationId_for_prediction post_code
+    postcodes = []
+    Location.all.each {|l| postcodes.push(l[:postcode])}
+    p postcodes
+    begin
+                return location_id = Location.find_by(postcode: post_code).id
+    rescue 
+                puts "Error: fail to find location in database through the post code"
+                return nil
+    end
+  end
+
+  def self.getWeather_for_prediction location_id
+    t = Time.new
+    weathers = Weather.where(date: (t-(60*60*3)..t),
+                          location_id: location_id)
+    if weathers.length < 1 || weathers.length ==1
+                  puts "Error: not enough weathers for prediction, replace with all weather data"
+                 return Weather.where(location_id: location_id)
+    else
+                  puts "Success: enough weathers for prediction, from 3hrs before to now"
+                 return weathers
+    end
+  end
+
+  def self.Lat_Long_to_Postcode lat, long
+    require'nokogiri'
+    require 'open-uri'
+    require 'json'
+          url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+long+'&sensor=true'
+          h = JSON.parse(open(url).read)
+          h_post_code = h['results'][0]['address_components'][-1]
+          if h_post_code['types'].include?("postal_code")
+            return h_post_code['long_name']
+          else
+            puts "Error cannot find post_code of the coordinates"
+          end    
+  end
+
   def self.getForecast
     require'nokogiri'
     require 'open-uri'

@@ -17,14 +17,14 @@
   </thead>
 
   <tbody>
-      <% if(@predictions.size == 0) %>
+      <% if(@predictions.length == 0) %>
       <tr>
         <td colspan ="7" align="center">No prediction data!</td>
       </tr>
     <% else %>
       <% @predictions.each do |prediction| %>
         <tr>          
-          <td align="center"><%= Time.local(prediction.time) %></td>
+          <td align="center"><%= Time.at(prediction.time) %></td>
           <td align="center"><%= prediction.rainfall_value %></td>
           <td align="center"><%= prediction.rainfall_probability %></td>
           <td align="center"><%= prediction.winddir_value %></td>

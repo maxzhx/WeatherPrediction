@@ -86,7 +86,7 @@ class Weather < ActiveRecord::Base
     weathers = Weather.where(date: (t-(60*60*3)..t),
                           location_id: location_id)
     if weathers.length < 1 || weathers.length ==1
-                  puts "Error: not enough weathers for prediction, replace with all weather data"
+                  puts "Error: not enough weathers for prediction from 3hrs before to now, replace with all weather data"
                  return Weather.where(location_id: location_id)
     else
                   puts "Success: enough weathers for prediction, from 3hrs before to now"

@@ -2,6 +2,22 @@ class Location < ActiveRecord::Base
 
   has_many :weathers
 
+  def self.getJsonLocations locations
+    location_hash = Hash.new
+    location_hash['date'] = Time.now.strftime('%d-%m-%Y')
+    location_hash['locations'] = Array.new
+    if locations != nil
+      locations.each do |location|
+          location_hash['locations'] << JSON.parse("{\"id\": \"#{location.name}\"," \
+                                                   + "\"lat\": \"#{location.lat}\"," \
+                                                   + "\"lon\": \"#{location.lon}\"," \
+                                                   + "\"last_update\": \"
+                                                   #{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
+      end
+    end
+    return location_hash
+  end
+
   def self.getLocation
     require 'nokogiri'
     require 'open-uri'

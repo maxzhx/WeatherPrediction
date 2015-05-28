@@ -1,6 +1,53 @@
 class Weather < ActiveRecord::Base
   belongs_to :location
 
+  def self.getPostcodeWeatherJson locations, location_weathers
+    weather_hash = Hash.new
+    weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
+    weather_hash['locations'] = Array.new
+
+    if locations != nil
+      locations.each_with_index do |location,index|
+        weather_hash['locations'] << JSON.parse("{\"id\": \"#{location.name}\"," \
+                                                 + "\"lat\": \"#{location.lat}\"," \
+                                                 + "\"lon\": \"#{location.lon}\"," \
+                                                 + "\"last_update\": \"#{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
+        weather_hash['locations'][index]['measurements'] = Array.new
+
+        location_weathers[index].each do |weather|
+            weather_hash['locations'][index]['measurements'] << JSON.parse("{\"time\": \"#{weather.date.strftime('%I:%M:%S %P')}\"," \
+                                                     + "\"temp\": \"#{weather.temperature}\"," \
+                                                     + "\"wind_direction\": \"#{weather.wind_direction}\"," \
+                                                     + "\"wind_speed\": \"#{weather.wind_speed}\"}")
+        end
+      end
+    end
+    return weather_hash
+  end
+
+  def self.getLocationWeatherJson weathers
+    weather_hash = Hash.new
+    weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
+
+    if weathers!=nil
+      if ((Time.now+(60*60*10)) - weathers.last.date) < 30*60
+        weather_hash['current_temp'] = weathers.last.temperature
+        weather_hash['current_cond'] = weathers.last.condition
+      else
+        weather_hash['current_temp'] = nil
+        weather_hash['current_cond'] = nil
+      end
+      weather_hash['measurements'] = Array.new
+      weathers.each do |weather|
+        weather_hash['measurements'] << JSON.parse("{\"time\": \"#{weather.date.strftime('%I:%M:%S %P')}\"," \
+                                                   + "\"temp\": \"#{weather.temperature}\"," \
+                                                   + "\"wind_direction\": \"#{weather.wind_direction}\"," \
+                                                   + "\"wind_speed\": \"#{weather.wind_speed}\"}")
+      end
+    end
+    return weather_hash
+  end
+
   def self.predict weathers, period
     return Prediction.predict(weathers, period)
   end

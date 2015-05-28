@@ -1,7 +1,7 @@
 <table align="center" border="1" style="border:solid">
   <thead>
     <tr>
-        <th colspan="5"><font size="4" color="red">Locations</font></th>
+        <th colspan="6"><font size="4" color="red">Locations</font></th>
     </tr>
     <tr>
       <th>Position</th>
@@ -9,6 +9,7 @@
       <th>Longitude</th>
       <th>Postcode</th>
       <th>Last Update Time</th>
+      <th>prediction</th>
     </tr>
   </thead>
 
@@ -29,6 +30,10 @@
                                            :post_code =>"#{location.postcode}", 
                                            :date =>Time.new.strftime("%d-%m-%Y")}) %></td>
           <td align="center"><%= location.last_update %></td>
+          <td align="center"><%= link_to('Prediction', {:controller =>'weather',:action => 'lat_long_prediction',
+                                           :lat =>"#{location.lat}", 
+                                           :long =>"#{location.lon}", 
+                                           :period => '180'}) %></td>
         </tr>
       <% end %>
     <% end %>

@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
+
 root to:'weather#locations'
+
   get 'weather/locations', to: 'weather#locations'
 
   get 'weather/data/:post_code/:date', post_code: /3\d{3}/ , to: 'weather#postcode_data'
 
   get 'weather/data/:location_id/:date', to: 'weather#location_data'
-  #get 'weather/data/:post_code/:date'
 
   get 'weather/prediction/:post_code/:period', to: 'weather#postcode_prediction'
 
-  get 'weather/prediction/:lat/:long/:period', to: 'weather#lat_long_prediction'
+  get 'weather/prediction/:lat/:long/:period', lat: /-?\d*.?\d*/, long: /-?\d*.?\d*/, to: 'weather#lat_long_prediction'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

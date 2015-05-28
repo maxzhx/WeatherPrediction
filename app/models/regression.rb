@@ -120,20 +120,20 @@ class  Regression
 			h_arr.push(h_p)
 		end
 
-		h_e =  reg_exponential(x_arr, y_arr)
-		if h_e[:error_flag] == false
-			h_e.store(:reg_type, 'exponential')
-			h_arr.push(h_e)
-		end
+		#h_e =  reg_exponential(x_arr, y_arr)
+		#if h_e[:error_flag] == false
+		#	h_e.store(:reg_type, 'exponential')
+		#	h_arr.push(h_e)
+		#end
 
-		h_lg = reg_logarithmic(x_arr, y_arr)
-		if h_lg[:error_flag] == false
-			h_lg.store(:reg_type, 'logarithmic')
-			h_arr.push(h_lg)
-		end
+		#h_lg = reg_logarithmic(x_arr, y_arr)
+		#if h_lg[:error_flag] == false
+		#	h_lg.store(:reg_type, 'logarithmic')
+		#	h_arr.push(h_lg)
+		#end
 
 		#p h_arr
-		#puts "=================="
+		#puts "======min v========"
 		#p get_min_v_reg(h_arr)
 
 		return get_min_v_reg(h_arr)

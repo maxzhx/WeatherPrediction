@@ -57,7 +57,7 @@ class Prediction
 
 	def self.predict weathers, period
 		puts " - ~~~~~~~Prediction start~~~~~~~"
-		puts " - numbers of data for regression: #{weathers.length}"
+		puts " - number of data for regression: #{weathers.length}"
 		puts " - period: #{period}"
 		#get best fit regressions
 		now_ts = Time.new.to_i

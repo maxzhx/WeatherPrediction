@@ -1,6 +1,6 @@
 =begin
 
-               ┏┓   ┏┓
+                ┏┓    ┏┓
               ┏┛┻━━━┛┻┓
               ┃       ┃
               ┃   ━   ┃
@@ -32,12 +32,19 @@ class WeatherController < ApplicationController
 
   def locations
     @locations = Location.all
+    respond_to do |format|
+      format.json{ render :json => @locations.to_json }  
+      format.html {}
+    end
   end
 
   def location_data
     @weathers =  Weather.getWeather(params[:location_id], params[:date])
-    puts params[:location_id]
-    puts params[:date]
+
+    respond_to do |format|  
+      format.json{ render :json => @weathers.to_json }  
+      format.html {}
+    end
   end
 
   def postcode_data
@@ -46,10 +53,10 @@ class WeatherController < ApplicationController
     @locations.each do |location|
       @location_weathers << Weather.getWeather(location.name, params[:date])
     end
-    puts '============='
-    puts @locations.length
-    puts params[:post_code]
-    puts params[:date]
+    respond_to do |format|  
+      format.json{ render :json => @location_weathers.to_json }  
+      format.html {}
+    end
   end
 
   def postcode_prediction
@@ -59,7 +66,12 @@ class WeatherController < ApplicationController
     location_id = Weather.getLocationId_for_prediction(params[:post_code])
     weathers = Weather.getWeather_for_prediction(location_id)
     @predictions = Weather.predict(weathers, params[:period])
-    render :template => 'weather/prediction'
+
+    respond_to do |format|  
+      format.json{ render :json => @predictions.to_json }  
+      format.html {render :template => 'weather/prediction'}
+    end
+    
   end
 
   def lat_long_prediction
@@ -70,7 +82,12 @@ class WeatherController < ApplicationController
     location_id = Weather.getLocationId_for_prediction(postcode)
     weathers = Weather.getWeather_for_prediction(location_id)
     @predictions = Weather.predict(weathers, params[:period])
-    render :template => 'weather/prediction'
+
+    respond_to do |format|  
+      format.json{ render :json => @predictions.to_json }  
+      format.html {render :template => 'weather/prediction'}
+    end
+
   end
 
 end

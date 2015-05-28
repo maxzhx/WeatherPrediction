@@ -45,17 +45,17 @@ class WeatherController < ApplicationController
   def location_data
     @weathers =  Weather.getWeather(params[:location_id], params[:date])
 
-    weather_hash = Hash.new
-    weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
-    weather_hash['current_temp'] = @weather.last.temperature
-    weather_hash['current_cond'] = @weather.last.condition
-    weather_hash['measurements'] = Array.new
-    @weathers.each do |weather|
-        weather_hash['measurements'] << JSON.parse("{\"time\": \"#{weather.date.strftime('%I:%M:%S %P')}\"," \
-                                                 + "\"lat\": \"#{location.lat}\"," \
-                                                 + "\"lon\": \"#{location.lon}\"," \
-                                                 + "\"last_update\": \"#{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
-    end
+   # weather_hash = Hash.new
+   # weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
+   # weather_hash['current_temp'] = @weather.last.temperature
+   # weather_hash['current_cond'] = @weather.last.condition
+   # weather_hash['measurements'] = Array.new
+   # @weathers.each do |weather|
+   #     weather_hash['measurements'] << JSON.parse("{\"time\": \"#{weather.date.strftime('%I:%M:%S %P')}\"," \
+   #                                              + "\"lat\": \"#{location.lat}\"," \
+   #                                              + "\"lon\": \"#{location.lon}\"," \
+   #                                              + "\"last_update\": \"#{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
+   # end
     respond_to do |format|  
       format.json{ render :json => @weathers.to_json }  
       format.html {}

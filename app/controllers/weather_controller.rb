@@ -101,10 +101,11 @@ class WeatherController < ApplicationController
   end
 
   def lat_long_prediction
-    puts params[:lat]
-    puts params[:long]
-    puts params[:period]
-    p postcode = Weather.Lat_Long_to_Postcode(params[:lat], params[:long])
+    puts " - lat: #{params[:lat]}"
+    puts " - lon: #{params[:long]}"
+    puts " - period: #{params[:period]}"
+    postcode = Weather.Lat_Long_to_Postcode(params[:lat], params[:long])
+    puts " - postcode: #{postcode}"
     location_id = Weather.getLocationId_for_prediction(postcode)
     weathers = Weather.getWeather_for_prediction(location_id)
     @predictions = Weather.predict(weathers, params[:period])

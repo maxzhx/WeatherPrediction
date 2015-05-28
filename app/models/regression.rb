@@ -38,14 +38,14 @@ class  Regression
 			ds = {'x'=>x_vector, 'y'=>y_vector}.to_dataset
 			mlr = Statsample::Regression.multiple(ds,'y')
 			#variance
-			b = mlr.constant.round(1)
-			k = mlr.coeffs["x"].round(1)
+			b = mlr.constant
+			k = mlr.coeffs["x"]
 			if b.nan? || k.nan?
 				return h = {coeff: 0.0, constant: y_arr[0], variance: 0.0, error_flag: false}				
 			end					
 			y_arr_cal = []
 			x_arr.each {|val|y_arr_cal.push(k*val+b)}
-			v = variance_two_arrs(y_arr_cal,y_arr).round(1)
+			v = variance_two_arrs(y_arr_cal,y_arr)
 			return h = {coeff: k, constant: b, variance: v, error_flag: false}
 		rescue
 			return h = {error_flag: true}
@@ -60,7 +60,7 @@ class  Regression
 			my =Matrix.column_vector(y_arr)
 			arr_coe = @coefficients= ((mx.t * mx).inv * mx.t * my).transpose.to_a[0]
 			coeffs = @coefficients= ((mx.t * mx).inv * mx.t * my).transpose.to_a[0]
-			coeffs.length.times {|i| coeffs[i] = coeffs[i].round(1) }
+			coeffs.length.times {|i| coeffs[i] = coeffs[i]}
 			constant = coeffs.shift
 			coeff = []
 			coeffs.each {|v| coeff.unshift(v)}
@@ -74,7 +74,7 @@ class  Regression
 				end
 				y_arr_cal.push(sum)
 			end
-			v = variance_two_arrs(y_arr_cal,y_arr).round(1)
+			v = variance_two_arrs(y_arr_cal,y_arr)
 			return h = {coeff: coeff, constant: constant, variance: v, error_flag: false}
 		rescue
 			return h = {error_flag: true}
@@ -134,7 +134,7 @@ class  Regression
 
 		#p h_arr
 		#puts "======min v========"
-		#p get_min_v_reg(h_arr)
+		p get_min_v_reg(h_arr)
 
 		return get_min_v_reg(h_arr)
 

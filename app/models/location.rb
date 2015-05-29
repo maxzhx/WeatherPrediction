@@ -11,8 +11,7 @@ class Location < ActiveRecord::Base
           location_hash['locations'] << JSON.parse("{\"id\": \"#{location.name}\"," \
                                                    + "\"lat\": \"#{location.lat}\"," \
                                                    + "\"lon\": \"#{location.lon}\"," \
-                                                   + "\"last_update\": \"
-                                                   #{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
+                                                   + "\"last_update\": \"#{location.last_update.strftime('%I:%M%P %d-%m-%Y')}\"}")
       end
     end
     return location_hash

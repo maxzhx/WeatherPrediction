@@ -6,9 +6,8 @@ require 'rufus-scheduler'
 s = Rufus::Scheduler.singleton
 
 
-s.every '10s', :overlap => false do
-  #%x(rake weather:getNewData)
-  #%x(rake weather:getLocation)
-  Rails.logger.info "hello, it's #{Time.now}"
+s.every '10m', :overlap => false do
+  Rails.logger.info "Acquiring new forecast data.... #{Time.now}"
+  Weather.getForecast
   #Location.getLocation()
 end

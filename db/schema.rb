@@ -23,12 +23,6 @@ ActiveRecord::Schema.define(version: 20150524063709) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "tests", force: :cascade do |t|
-    t.text     "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "weathers", force: :cascade do |t|
     t.float    "rainfall"
     t.float    "wind_direction"

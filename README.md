@@ -19,10 +19,15 @@ Xue Jiang - 665401
 Please run these commands:
 
 bundle install
+
 rake db:create
+
 rake db:migrate
+
 rake weather:getLocation
+
 rake weather:getForecast
+
 rails s
 
 ## APIs:

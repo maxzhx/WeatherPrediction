@@ -2,6 +2,7 @@
 class Weather < ActiveRecord::Base
   belongs_to :location
 
+  # get JSON format for locations and weathers
   def self.get_postcode_weather_json(locations, location_weathers)
     weather_hash = {}
     weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
@@ -26,6 +27,7 @@ class Weather < ActiveRecord::Base
     return weather_hash
   end
 
+  # get JSON format for weathers
   def self.get_location_weather_json(weathers)
     weather_hash = {}
     weather_hash['date'] = Time.now.strftime('%d-%m-%Y')
@@ -49,10 +51,12 @@ class Weather < ActiveRecord::Base
     return weather_hash
   end
 
+  # get prediction according to given weather data and period
   def self.predict(weathers, period)
     Prediction.predict(weathers, period)
   end
 
+  # get weather for a location in a given date
   def self.getWeather(location, date)
     Weather.where(date: (Time.parse(date) + (60 * 60 * 10)..
                          (Time.parse(date) + 1.day) + (60 * 60 * 10)),
@@ -95,6 +99,7 @@ class Weather < ActiveRecord::Base
     end
   end
 
+  # transfer lat and long to postcode
   def self.Lat_Long_to_Postcode(lat, long)
     require 'nokogiri'
     require 'open-uri'
@@ -109,6 +114,7 @@ class Weather < ActiveRecord::Base
     end
   end
 
+  # get new forecast data from server
   def self.getForecast
     require 'nokogiri'
     require 'open-uri'

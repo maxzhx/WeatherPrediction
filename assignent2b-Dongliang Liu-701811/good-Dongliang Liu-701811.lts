@@ -1,0 +1,102 @@
+//SWEN40004 assignment 2B-good
+//Dongliang Liu
+//ID:701811
+
+//Empty represent there is no bag in this segment of belt
+//Normal represnet that there is a normal bag in this segment of belt
+//Suspicious represent that there is a suspicious bag in this segment of belt
+const Empty = 0
+const Normal = 1
+const Suspicious = 2
+const Clean = 3
+
+//Sca_suspicious represent the scanner get a  suspicious bag
+//Sca_Clean represent that there is a cleaned bag in scanner
+const Sca_Suspicious = 1
+const Sca_Clean = 2
+
+range SEG = Empty..Clean
+range SCAN = Empty..Sca_Clean
+
+ 
+//Producor can create new bag, the bag could be normal or suspicious
+PRODUCOR=( produceNormalBag -> PRODUCOR | produceSuspiciousBag -> PRODUCOR).
+
+// create a belt with 5 segments and make it empty. if there is no bag on it, it won't move
+BELT=BELT[Empty][Empty][Empty][Empty][Empty],
+BELT[segA:SEG][segB:SEG][segC:SEG][segD:SEG][segE:SEG] =
+ 
+  //producor can create a new normal bag and put it in first segment of belt when the first segment is empty     
+  (when (segA == Empty) produceNormalBag ->BELT[Normal][segB][segC][segD][segE]
+
+  //producor can areate a suspicious bag and put is in first segment of belt when the first segment is empty
+  |when (segA==Empty) produceSuspiciousBag -> BELT[Suspicious][segB][segC][segD][segE]
+
+  //the customer can take the bag away from belt when the bag arrive the 5th segment
+  |when (segE !=Empty) getEndBelt -> BELT[segA][segB][segC][segD][Empty]
+
+  //when the 5th segment is empty,the bag in 3th segment is not suspicious and there is at least one bag on belt. the belt move
+  |when (segE ==Empty && segC !=Suspicious &&(segA!=Empty || segB!= Empty || segC!=Empty||segD!=Empty)) move->BELT[Empty][segA][segB][segC][segD]
+
+  //when the bag in 3th segment is suspicious, the scanner will find it and make this bag leave the belt
+  |when(segC==Suspicious) foundSuspiciousBag->BELT[segA][segB][Empty][segD][segE]
+
+).
+
+//when suspicious is found, the robot can make this bag leave belt and put it in scanner and push the cleaned bag back to the 3th segment of belt
+ROBOT = (foundSuspiciousBag -> getSuspicious -> 
+	clean ->pushCleanedBagLeaveScanner-> pushCleanToScannerBelt -> ROBOT).
+
+//create a scanner and make it empty
+SCANNER = SCANNER[Empty],
+SCANNER[scan:SCAN] =
+	
+     //when scanner is empty, the suspicious bag can move into it
+	(when (scan == Empty) getSuspicious -> SCANNER[Sca_Suspicious]
+
+	//when the bag in scanner is suspicious, the scanner make bag clean
+	|when (scan == Sca_Suspicious) clean -> SCANNER[Sca_Clean]
+	
+    //when the bag in scannaer is cleaned, make it leave the scanner
+	|when (scan ==Sca_Clean) pushCleanedBagLeaveScanner -> SCANNER[Empty]
+	).
+
+//create a Scanner belt wieh 2 segments,make it empty,the bags cleaned by scanner will  be put into it.if there is no bags on it, it won't move
+SCANNERBELT =SCANNERBELT[Empty][Empty],
+SCANNERBELT[a:SEG][b:SEG]=
+
+  //when the first segment of it is empty, cleaned bag can be put on it
+  (when (a ==Empty) pushCleanToScannerBelt-> SCANNERBELT[Clean][b]
+
+  //when the second segment of it is empty and the whole scanner belt is not empty, this belt move
+  |when (b == Empty && a!=Empty) moveScannerBelt->SCANNERBELT[Empty][a]
+
+  //when there is a bag on second segment of it, the coustmer take bag from it
+  |when (b !=Empty) getEndScannerBelt->SCANNERBELT[a][Empty]).
+
+//when the bag arrive the 5th segment, the customer take it from the belt
+CONSUMER =
+	(getEndBelt -> CONSUMER
+   |getEndScannerBelt->CONSUMER).
+
+//Living progress property.
+progress BELT = {move, putNormalBag, putSuspiciousBag, foundSuspiciousBag , getEndBelt}
+progress PRODUCER = {produceNormalBag, produceSuspiciousBag}
+progress CONSUMER = {getEndBelt,getEndScannerBelt}
+progress ROBOT = {foundSuspiciousBag, getSuspicious, clean, pushCleanedBagLeaveScanner,pushCleanToScannerBelt}
+progress SCANNER = {getSuspicious, clean, pushCleanToScannerBelt}
+progress SCANNERBELT ={pushCleanToScannerBelt,moveScannerBelt,getEndScannerBelt}
+
+
+// safety property
+property SAFETY_PRODUCOR =(produceNormalBag -> SAFETY_PRODUCOR | produceSuspiciousBag -> SAFETY_PRODUCOR).
+
+property SAFETY_ROBOT =(foundSuspiciousBag ->pushCleanedBagLeaveScanner-> pushCleanToScannerBelt -> SAFETY_ROBOT).
+
+property SAFETY_SCANNER =(getSuspicious->clean->pushCleanedBagLeaveScanner->SAFETY_SCANNER).
+
+property SAFETY_CONSUMER =(getEndBelt -> SAFETY_CONSUMER|getEndScannerBelt->SAFETY_CONSUMER).
+
+
+
+||SAFETY_SYS =(PRODUCOR||BELT||ROBOT||SCANNER||SCANNERBELT||CONSUMER||SAFETY_PRODUCOR||SAFETY_ROBOT||SAFETY_SCANNER||SAFETY_CONSUMER).

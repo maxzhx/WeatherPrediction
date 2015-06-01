@@ -24,6 +24,7 @@ class Location < ActiveRecord::Base
     require 'open-uri'
     require 'json'
     url = 'http://www.postcodes-australia.com/state-postcodes/vic'
+    puts 'Acquiring location data. This might take a while. Please make sure the internet is accessible.'
 
     # try three times
     begin 

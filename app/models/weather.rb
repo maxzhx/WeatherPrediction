@@ -63,6 +63,7 @@ class Weather < ActiveRecord::Base
                   location_id: Location.find_by(name: location))
   end
 
+  #get location id for prediction
   def self.getLocationId_for_prediction(post_code)
     postcodes = []
     Location.all.each { |l| postcodes.push(l[:postcode]) }
@@ -86,6 +87,7 @@ class Weather < ActiveRecord::Base
     end
   end
 
+    #get weathers for prediction
   def self.getWeather_for_prediction location_id
     t = Time.new
     weathers = Weather.where(date: (t - (60 * 60 * 3)..t),

@@ -3,16 +3,18 @@ require 'matrix'
 
 class  Regression
 
-	def self.sillyprint
-		puts "~~~print~~~~"
-	end
+	#def self.sillyprint
+	#	puts "~~~print~~~~"
+	#end
 
+	#get sum of an array
 	def self.sum(arr)
 		sum=0.0
 		arr.each{|val|sum=sum+val.to_f}
 		return sum
 	end
 
+	#get sum of product of two arrays
 	def self.sum_product_two_arrs(arr1,arr2)
 		n = arr1.length
 		arr_p = Array.new
@@ -22,6 +24,7 @@ class  Regression
 		return sum(arr_p)
 	end
 
+	#get variance of  two arrays
 	def  self.variance_two_arrs(arr1,arr2)
 		n = arr1.length
 		arr_v = Array.new
@@ -31,6 +34,7 @@ class  Regression
 		return sum_product_two_arrs(arr_v,arr_v)/n
 	end
 
+	#get regressions
 	def self.reg_linear x_arr, y_arr
 		begin 
 			x_vector = x_arr.to_vector(:scale)
@@ -91,6 +95,7 @@ class  Regression
 		return reg_linear(exp_x_data, y_arr)
 	end
 
+	#get regression whose variance is smallest from an array of regressions
 	def self.get_min_v_reg h_arr
 		if h_arr.length == 0
 			puts "Error: Regression not found"
@@ -105,6 +110,7 @@ class  Regression
 		return h_min_v
 	end
 
+	#get best fit regression
 	def  self.reg_all x_arr, y_arr
 		h_arr = []
 

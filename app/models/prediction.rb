@@ -9,22 +9,25 @@ class Prediction
 	attr_accessor :temp_value
 	attr_accessor :temp_probability
 	
-	def self.testprint
-		p "@@@@@@@@~~~~ test print"
-	end
+	#def self.testprint
+	#	p "@@@@@@@@~~~~ test print"
+	#end
 
+	# get relative time array from weathers
 	def self.timeAbstract weathers, now_ts
 		arr = []
 		weathers.each {|v| arr.push(v[:date].to_i - now_ts)}
 		return arr
 	end
 
+	# get corresponding data array from weathers , for example rainfall data array
 	def self.dataAbstract weathers, key	
 		arr = []
 		weathers.each {|v| arr.push(v[key])}
 		return arr
 	end
 
+	# get value from formula and key
 	def self.getValue reg, time
 		if reg[:reg_type] == 'linear'
 			#puts "getting linear value ..."	
@@ -55,6 +58,7 @@ class Prediction
 		return (1/(reg[:variance]+1)).round(2)
 	end
 
+	#get prediction data from weathers and period by get the best fit regression
 	def self.predict weathers, period
 		puts " - ~~~~~~~Prediction start~~~~~~~"
 		puts " - number of data for regression: #{weathers.length}"
